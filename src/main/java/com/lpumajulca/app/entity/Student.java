@@ -1,6 +1,6 @@
 package com.lpumajulca.app.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "student")
@@ -20,6 +20,12 @@ public class Student {
     private String email;
 
     public Student() {
+    }
+
+    public Student(String name, String lastName, String email) {
+        this.name = name;
+        this.lastName = lastName;
+        this.email = email;
     }
 
     public Student(Long id, String name, String lastName, String email) {

@@ -11,10 +11,10 @@ import java.util.List;
 public class StudentServiceImpl implements StudentService{
 
     @Autowired
-    private StudentRepository studentRepository;
+    private StudentRepository repository;
 
     @Override
     public List<Student> listAllStudents() {
-        return studentRepository.findAll();
+        return repository.findAll();
     }
 }
