@@ -5,9 +5,7 @@ import com.lpumajulca.app.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class StudentController {
@@ -33,4 +31,29 @@ public class StudentController {
         service.saveStudent(student);
         return "redirect:/students";
     }
+
+    @GetMapping("/students/edit/{id}")
+    public String updateForm(@PathVariable Long id, Model model) {
+        model.addAttribute("student", service.getStudentForId(id));
+        return "update_student";
+    }
+
+    @PostMapping("/students/{id}")
+    public String updateStudent(@PathVariable Long id, @ModelAttribute("student") Student student, Model model)   {
+        Student studentExists = service.getStudentForId(id);
+        studentExists.setId(id);
+        studentExists.setName(student.getName());
+        studentExists.setLastName(student.getLastName());
+        studentExists.setEmail(student.getEmail());
+
+        service.updateStudent(studentExists);
+        return "redirect:/students";
+    }
+
+    @GetMapping("/students/{id}")
+    public String deleteStudent(@PathVariable Long id) {
+        service.deleteStudent(id);
+        return "redirect:/students";
+    }
+
 }
